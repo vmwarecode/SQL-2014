@@ -1,0 +1,255 @@
+'@type': "SoftwareComponentType"
+createdDate: "2016-12-31T14:58:15.681Z"
+lastUpdated: "2017-01-03T18:54:21.277Z"
+id: "Software.MSSQL2014"
+name: "SQL Server 2014"
+description: "Install SQL Server 2014 from an ISO file. The only component installed\
+  \ is the SQL engine. Other features may be installed but have not been tested with\
+  \ this software blueprint. The SQL Server service will run locally as the Administrator\
+  \ account."
+publishStatus: "PUBLISHED"
+publishStatusName: "Published"
+schema:
+  fields:
+  - id: "MountPath"
+    label: "MountPath"
+    description: "Path where the ISO is located."
+    dataType:
+      type: "primitive"
+      typeId: "STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "derivedValue"
+        value:
+          type: "constant"
+          value:
+            type: "string"
+            value: "fileserver.domain.com\\SQL2014"
+    isMultiValued: false
+  - id: "InstanceName"
+    label: "InstanceName"
+    description: "SQL instance name."
+    dataType:
+      type: "primitive"
+      typeId: "STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "defaultValue"
+        value:
+          type: "constant"
+          value:
+            type: "string"
+            value: "SQLSERVER"
+    isMultiValued: false
+  - id: "SQLAccountUsername"
+    label: "SQLAccountUsername"
+    description: "Account used to run the SQL service."
+    dataType:
+      type: "primitive"
+      typeId: "STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "derivedValue"
+        value:
+          type: "constant"
+          value:
+            type: "string"
+            value: "Administrator"
+    isMultiValued: false
+  - id: "MountUsername"
+    label: "MountUsername"
+    description: "User with permissions to mount and access the SQL ISO."
+    dataType:
+      type: "primitive"
+      typeId: "STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "derivedValue"
+        value:
+          type: "constant"
+          value:
+            type: "string"
+            value: "DOMAIN\\user"
+    isMultiValued: false
+  - id: "host"
+    label: "Container"
+    description: ""
+    dataType:
+      type: "ref"
+      componentTypeId: "com.vmware.csp.iaas.blueprint.service"
+      classId: "Infrastructure.Machine.Schema"
+      label: "Machine"
+    state:
+      dependencies: []
+      facets:
+      - type: "visible"
+        value:
+          type: "constantClause"
+          value:
+            type: "boolean"
+            value: false
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "internal"
+        value:
+          type: "constantClause"
+          value:
+            type: "boolean"
+            value: true
+    isMultiValued: false
+  - id: "SQLSysAdminAccounts"
+    label: "SQLSysAdminAccounts"
+    description: "Accounts which will be granted the sysadmins role inside SQL."
+    dataType:
+      type: "primitive"
+      typeId: "STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "derivedValue"
+        value:
+          type: "constant"
+          value:
+            type: "string"
+            value: "DOMAIN\\user"
+    isMultiValued: false
+  - id: "ISOFileName"
+    label: "ISOFileName"
+    description: "Name of the SQL ISO file."
+    dataType:
+      type: "primitive"
+      typeId: "STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "derivedValue"
+        value:
+          type: "constant"
+          value:
+            type: "string"
+            value: "en_sql_server_2014_developer_edition_with_service_pack_2_x64_dvd_8967821.iso"
+    isMultiValued: false
+  - id: "SQLAccountPassword"
+    label: "SQLAccountPassword"
+    description: "Password for account used to run SQL service."
+    dataType:
+      type: "primitive"
+      typeId: "SECURE_STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "encrypted"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "derivedValue"
+        value:
+          type: "constant"
+          value:
+            type: "secureString"
+            value: ""
+    isMultiValued: false
+  - id: "MountPassword"
+    label: "MountPassword"
+    description: "Password for user with access to SQL ISO file."
+    dataType:
+      type: "primitive"
+      typeId: "SECURE_STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "encrypted"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "derivedValue"
+        value:
+          type: "constant"
+          value:
+            type: "secureString"
+            value: ""
+    isMultiValued: false
+containerFieldId: "host"
+lifecycleTasks:
+- createdDate: "2016-12-31T15:00:17.377Z"
+  lastUpdated: "2017-01-03T18:54:21.277Z"
+  script:
+    scriptContent: "#Install .NET 3.5\nWrite-Output \"Installing .NET 3.5\"\nInstall-WindowsFeature\
+      \ Net-Framework-Core\nWrite-Output \"Mounting remote software repo\"\nnet use\
+      \ \\\\$MountPath /user:$MountUsername $MountPassword\n$mountresult = Mount-DiskImage\
+      \ -ImagePath \\\\$MountPath\\$ISOFileName -PassThru\n$driveletter = ($mountresult\
+      \ | Get-Volume).DriveLetter\n$process = $driveletter+':\\setup.exe'\n$arguments\
+      \ =  \"/Q /Action=Install /IACCEPTSQLSERVERLICENSETERMS /UpdateEnabled=0 /INSTANCENAME=$InstanceName\
+      \ /FEATURES=SQLEngine /SQLSVCACCOUNT=$SQLAccountUsername /SQLSVCPASSWORD=$SQLAccountPassword\
+      \ /SQLSYSADMINACCOUNTS=$SQLSysAdminAccounts /AGTSVCACCOUNT=\"\"NT Authority\\\
+      Network Service\"\"\"\nWrite-Output \"Installing SQL Server with instance named\
+      \ $InstanceName\"\n#Start-Process $process $arguments\nTry \n     {\n     Start-Process\
+      \ $process -ArgumentList $arguments -PassThru -Wait -ErrorAction Stop\n    \
+      \ }\nCatch\n     {\n     Write-Error \"Failed to install SQL Server 2014\"\n\
+      \     Write-Error $_.Exception\n     Exit -1 \n     }\nWrite-Output \"Unmounting\
+      \ SQL ISO\"\nDisMount-DiskImage -ImagePath \\\\$MountPath\\$ISOFileName"
+    isRebootAfter: false
+    scriptTypeId: "powershell"
+  taskDescriptorRef:
+    id: "INSTALL"
+    label: "Install"

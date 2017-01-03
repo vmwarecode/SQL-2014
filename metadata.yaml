@@ -1,0 +1,10 @@
+name: "auto-generated-pkg-916fa96e-4886-4518-9a71-6639eb258c84"
+productVersion: "7.2.0-SNAPSHOT"
+data:
+- locator: "software-component/Software.MSSQL2014.yaml"
+  name: "SQL Server 2014"
+  description: "Install SQL Server 2014 from an ISO file. The only component installed\
+    \ is the SQL engine. Other features may be installed but have not been tested\
+    \ with this software blueprint. The SQL Server service will run locally as the\
+    \ Administrator account."
+exportTime: "2017-01-03T18:57:56.622Z"
